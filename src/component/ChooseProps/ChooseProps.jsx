@@ -75,7 +75,8 @@ export default class ChooseProps extends React.Component {
         let rp = [];
         for (let i = 0; i< 3; i++)
             rp.push(Math.floor(Math.random()*100))
-        rp.sort();
+        rp.sort((a,b) => {return a - b;});
+        console.log(rp)
         this.setState({
             name: names[rn] + "某",
             sex: sexs[rs],
@@ -136,7 +137,7 @@ export default class ChooseProps extends React.Component {
                     </Form.Item>
                     <Form.Item
                         {...Layout}
-                        label="身体"
+                        label="体力"
                     >
                         <PropPoints defaultValue={this.state.bodyPoint} max={this.state.totalPoints} onPointsChange={this.onPointsChange} type={"bodyPoint"}/>
                     </Form.Item>
