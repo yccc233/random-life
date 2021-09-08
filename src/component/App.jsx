@@ -5,12 +5,14 @@ import '../css/antd.css';
 import {Route, BrowserRouter, Link} from "react-router-dom";
 
 import ChooseProps from "./ChooseProps/ChooseProps";
+import {StartLife} from "./StartLife/StartLife";
 
 function App() {
   return (
       <BrowserRouter>
           <Route exact path='/' component={Start} />
           <Route path='/chooseprops' component={ChooseProps} />
+          <Route path='/startlife' component={StartLife} />
       </BrowserRouter>
   );
 }

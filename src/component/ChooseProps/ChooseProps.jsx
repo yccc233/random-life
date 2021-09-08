@@ -2,42 +2,46 @@
 import React from "react";
 import './ChooseProps.css';
 
+import {Redirect} from 'react-router-dom';
 import {Form, Button, Select, Input, Tooltip, InputNumber} from 'antd';
 import { UserOutlined, FrownOutlined, SmileOutlined, MehOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
+
+
+const names = ['赵','钱','孙','李','周','吴','郑','王'];
+const sexs = ['male','female','random'];
+const startPath = "/startlife";
 
 const Layout = {
     labelCol: {
         span: 10,
     },
     wrapperCol: {
-        span: 6,
+        span: 4,
     }
 }
 
 const tailLayout = {
     wrapperCol: {
-        offset: 10,
+        offset: 9,
         span: 16,
     },
 };
-
-const names = ['赵','钱','孙','李','周','吴','郑','王'];
-const sexs = ['male','female','random'];
 
 export default class ChooseProps extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:           null,
-            sex:            null,
-            totalPoints:    100,
-            usedPoints:     0,
-            familyPoint:    0,
-            iqPoint:        0,
-            bodyPoint:      0,
-            luckPoint:      0
+            name: null,
+            sex: null,
+            isFinish: false,
+            totalPoints: 100,
+            usedPoints: 0,
+            familyPoint: 0,
+            iqPoint: 0,
+            bodyPoint: 0,
+            luckPoint: 0
         };
     }
 
@@ -66,38 +70,40 @@ export default class ChooseProps extends React.Component {
 
     onFinish = () => {
         console.log("start", this.state);
+        this.setState({
+            isFinish: true
+        });
     };
 
     onRandom = () => {
-
-        let rn = Math.floor(Math.random()*100) % names.length;
-        let rs = Math.floor(Math.random()*100) % 3;
+        let rn = Math.floor(Math.random() * 100) % names.length;
+        let rs = Math.floor(Math.random() * 100) % 3;
         let rp = [];
-        for (let i = 0; i< 3; i++)
-            rp.push(Math.floor(Math.random()*100))
-        rp.sort((a,b) => {return a - b;});
-        console.log(rp)
+        for (let i = 0; i < 3; i++)
+            rp.push(Math.floor(Math.random() * 100))
+        rp.sort((a, b) => {
+            return a - b;
+        });
         this.setState({
             name: names[rn] + "某",
             sex: sexs[rs],
-            usedPoints:     100,
-            familyPoint:    rp[0] - 0,
-            iqPoint:        rp[1] - rp[0],
-            bodyPoint:      rp[2] - rp[1],
-            luckPoint:      100 - rp[2]
+            usedPoints: 100,
+            familyPoint: rp[0] - 0,
+            iqPoint: rp[1] - rp[0],
+            bodyPoint: rp[2] - rp[1],
+            luckPoint: 100 - rp[2]
         })
     };
 
     onPointsChange = (type, value) => {
         let pastPoint = this.state[type];
-        let used = this.state.usedPoints  + value - pastPoint
+        let used = this.state.usedPoints + value - pastPoint
         let newState = {
             type: value,
             usedPoints: used,
             remainPoints: this.state.totalPoints - used
         };
         newState[type] = value;
-
         this.setState(newState);
     }
 
@@ -112,40 +118,45 @@ export default class ChooseProps extends React.Component {
                         label="姓名"
                         {...Layout}
                     >
-                      <InputName defaultName={this.state.name} />
+                        <InputName defaultName={this.state.name}/>
                     </Form.Item>
                     <Form.Item
                         label="性别"
                         {...Layout}
                     >
-                        <SelectSex onChange={this.onSexChange} sex={this.state.sex} />
+                        <SelectSex onChange={this.onSexChange} sex={this.state.sex}/>
                     </Form.Item>
-                    <p style={{textAlign: "center"}}>下面为个人基本属性加个点！点数剩余
-                        <span style={{color: "blue"}}>{this.state.totalPoints - this.state.usedPoints}</span>，请自觉！🐶</p>
+                    <p style={{textAlign: "center"}}>下面为娃儿基本属性加个点！点数剩余
+                        <span style={{color: "blue"}}>{this.state.totalPoints - this.state.usedPoints}</span>，请自觉分配！🐶
+                    </p>
 
                     <Form.Item
                         {...Layout}
                         label="家境"
                     >
-                        <PropPoints defaultValue={this.state.familyPoint} max={this.state.totalPoints} onPointsChange={this.onPointsChange} type={"familyPoint"}/>
+                        <PropPoints defaultValue={this.state.familyPoint} max={this.state.totalPoints}
+                                    onPointsChange={this.onPointsChange} type={"familyPoint"}/>
                     </Form.Item>
                     <Form.Item
                         {...Layout}
                         label="智力"
                     >
-                        <PropPoints defaultValue={this.state.iqPoint} max={this.state.totalPoints} onPointsChange={this.onPointsChange} type={"iqPoint"}/>
+                        <PropPoints defaultValue={this.state.iqPoint} max={this.state.totalPoints}
+                                    onPointsChange={this.onPointsChange} type={"iqPoint"}/>
                     </Form.Item>
                     <Form.Item
                         {...Layout}
                         label="体力"
                     >
-                        <PropPoints defaultValue={this.state.bodyPoint} max={this.state.totalPoints} onPointsChange={this.onPointsChange} type={"bodyPoint"}/>
+                        <PropPoints defaultValue={this.state.bodyPoint} max={this.state.totalPoints}
+                                    onPointsChange={this.onPointsChange} type={"bodyPoint"}/>
                     </Form.Item>
                     <Form.Item
                         {...Layout}
                         label="幸运值"
                     >
-                        <PropPoints defaultValue={this.state.luckPoint} max={this.state.totalPoints} onPointsChange={this.onPointsChange} type={"luckPoint"}/>
+                        <PropPoints defaultValue={this.state.luckPoint} max={this.state.totalPoints}
+                                    onPointsChange={this.onPointsChange} type={"luckPoint"}/>
                     </Form.Item>
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit" className="btn">
@@ -156,6 +167,11 @@ export default class ChooseProps extends React.Component {
                         </Button>
                     </Form.Item>
                 </Form>
+                {
+                    this.state.isFinish && (
+                        <Redirect to={startPath}/>
+                    )
+                }
             </div>
         );
     }
