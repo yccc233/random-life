@@ -1,11 +1,14 @@
 import React from "react";
 
-export class StartLife extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>hello this is your life!</p>
-            </div>
-        );
-    }
+import ChooseProps from "../ChooseProps/ChooseProps";
+import {BrowserRouter, Route} from "react-router-dom";
+
+function StartLife() {
+    return (
+        <BrowserRouter>
+            <Route path="/chooseprops" component={ChooseProps}/>
+        </BrowserRouter>
+    );
 }
+
+export default StartLife;

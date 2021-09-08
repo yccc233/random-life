@@ -7,13 +7,11 @@ import {Route, BrowserRouter, Link} from "react-router-dom";
 import ChooseProps from "./ChooseProps/ChooseProps";
 import {StartLife} from "./StartLife/StartLife";
 
-var yourProps = {};
-
 function App() {
   return (
       <BrowserRouter>
           <Route exact path='/' component={Start} />
-          <Route path='/chooseprops' component={ChooseProps} />
+          {/*<Route path='/chooseprops' component={ChooseProps} />*/}
           <Route path='/startlife' component={StartLife} />
       </BrowserRouter>
   );
@@ -28,7 +26,7 @@ const Start = () => (
             </p>
             <Link
                 className="App-link"
-                to="/chooseprops"
+                to="/startlife"
             >
                 开始你的异世界之旅吧！
             </Link>
