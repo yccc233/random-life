@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import '../css/antd.css';
 
-import {Route, BrowserRouter} from "react-router-dom";
+import {Route, BrowserRouter, Link} from "react-router-dom";
 
-
+import ChooseProps from "./ChooseProps/ChooseProps";
 
 function App() {
   return (
       <BrowserRouter>
           <Route exact path='/' component={Start} />
-          <Route path='/homepage' component={HomePage} />
+          <Route path='/chooseprops' component={ChooseProps} />
       </BrowserRouter>
   );
 }
@@ -21,21 +22,13 @@ const Start = () => (
             <p>
                 随机人生重置版！
             </p>
-            <a
+            <Link
                 className="App-link"
-                href="/homepage"
-                target="_blank"
-                rel="noopener noreferrer"
+                to="/chooseprops"
             >
                 开始你的异世界之旅吧！
-            </a>
+            </Link>
         </header>
-    </div>
-)
-
-const HomePage = () => (
-    <div>
-        <p>hello this is my home page!</p>
     </div>
 )
 
