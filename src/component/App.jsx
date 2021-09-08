@@ -7,6 +7,8 @@ import {Route, BrowserRouter, Link} from "react-router-dom";
 import ChooseProps from "./ChooseProps/ChooseProps";
 import {StartLife} from "./StartLife/StartLife";
 
+var yourProps = {};
+
 function App() {
   return (
       <BrowserRouter>
