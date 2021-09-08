@@ -68,8 +68,7 @@ export default class ChooseProps extends React.Component {
         }
     };
 
-    onFinish = () => {
-        console.log("start", this.state);
+    onFinish = (value) => {
         this.setState({
             isFinish: true
         });
@@ -169,9 +168,16 @@ export default class ChooseProps extends React.Component {
                 </Form>
                 {
                     this.state.isFinish && (
-                        <Redirect to={startPath}/>
+                        <Redirect to={`${startPath}/${this.state.name}/${this.state.sex}/${JSON.stringify({
+                                familyPoint: this.state.familyPoint,
+                                iqPoint: this.state.iqPoint,
+                                bodyPoint: this.state.bodyPoint,
+                                luckPoint: this.state.luckPoint
+                            })}`}/>
+
                     )
                 }
+
             </div>
         );
     }

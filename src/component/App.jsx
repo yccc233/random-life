@@ -12,11 +12,14 @@ function App() {
       <BrowserRouter>
           <Route exact path='/' component={Start} />
           <Route path='/chooseprops' component={ChooseProps} />
-          <Route path='/startlife' component={StartLife} />
+          <Route path='/startlife/:name/:sex/:params' component={StartLife} />
       </BrowserRouter>
   );
 }
 
+/**
+ * 开始页
+ */
 const Start = () => (
     <div className="App">
         <header className="App-header">
