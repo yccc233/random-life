@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors');
 const sqlite = require('sql.js');
 
 //由根目录下的node触发，路径从根目录起
@@ -9,28 +10,30 @@ const db = new sqlite.Database(fileBuffer);
 
 const app = express();
 
-app.set('port', (process.env.API_PORT || 3005));
+//解决CORS跨域请求
+app.use(cors());
 
-app.post('/server/sqlite/addline', (req, res) => {
-    console.log("query", req)
+app.set('port', 3005);
 
-    const param = req.query.q;
+app.get('/server/sqlite/addline', (req, res) => {
+    let query = req.query;
+    console.log(query)
 
-    if (!param) {
+    if (!query) {
         res.end(JSON.stringify({
             code: 1,
-            message: 'Missing required parameter `q`'
+            message: 'Missing required parameter'
         }));
         return;
     }
 
-    let sql = `insert into ${param.table}(${param.line.join(', ')}) values ('${
-        Object.values(line).join("', '")
-    }')`;
-    console.log("sql", sql)
+    let sql = `insert into ${query.table} (${query.columns.split('&').join(', ')}) values ('${
+        query.line.split('&').join("', '")
+    }');`;
+    console.log("sql:::", sql)
     // const r = dbSqlite.exec(sql);
 
-    console.log(r)
+    // console.log(r)
 
     res.end(JSON.stringify({
         code: 0,

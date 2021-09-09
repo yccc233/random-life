@@ -19,7 +19,7 @@ export class StartLife extends React.Component {
             ...JSON.parse(par.params)
         }
         this.setState(par);
-        $.post("http://localhost:3005/server/sqlite/addline", {
+        $.get("http://localhost:3005/server/sqlite/addline", {
             table: dbTable,
             columns: Object.keys(par).join('&'),
             line: Object.values(par).join('&')
