@@ -9,40 +9,37 @@ const db = new sqlite.Database(fileBuffer);
 
 const app = express();
 
-const columns = [
-    'name',
-    'sex',
-    'familyPoint',
-    'iqPoint',
-    'bodyPoint',
-    'luckPoint',
-];
-
 app.set('port', (process.env.API_PORT || 3005));
 
-app.get('/server/sqlite/addline', (req, res) => {
+app.post('/server/sqlite/addline', (req, res) => {
+    console.log("query", req)
+
     const param = req.query.q;
 
     if (!param) {
-        res.json({
+        res.end(JSON.stringify({
             code: 1,
             message: 'Missing required parameter `q`'
-        });
+        }));
         return;
     }
 
     let sql = `insert into ${param.table}(${param.line.join(', ')}) values ('${
         Object.values(line).join("', '")
     }')`;
-    console.log(sql)
+    console.log("sql", sql)
     // const r = dbSqlite.exec(sql);
 
     console.log(r)
 
-    res.json([]);
+    res.end(JSON.stringify({
+        code: 0,
+        message: '',
+        data: 'no data now'
+    }));
 });
 
 app.listen(app.get('port'), () => {
-    console.log(`Find the server at: http://localhost:${app.get('port')}/`);
+    console.log(`start the server at: http://localhost:${app.get('port')}/`);
 });
 

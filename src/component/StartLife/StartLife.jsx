@@ -1,4 +1,7 @@
 import React from "react";
+const $ = require('jquery');
+
+const dbTable = 'roles';
 
 export class StartLife extends React.Component {
 
@@ -9,17 +12,23 @@ export class StartLife extends React.Component {
     }
 
     componentWillMount() {
-        // let par = this.props.match.params;
-        // par = {
-        //     name: par.name,
-        //     sex: par.sex,
-        //     ...JSON.parse(par.params)
-        // }
-        // this.setState(par);
+        let par = this.props.match.params;
+        par = {
+            name: par.name,
+            sex: par.sex,
+            ...JSON.parse(par.params)
+        }
+        this.setState(par);
+        $.post("http://localhost:3005/server/sqlite/addline", {
+            table: dbTable,
+            columns: Object.keys(par).join('&'),
+            line: Object.values(par).join('&')
+        }).then(res => {
+            console.log("接口返回：", res);
+        });
     }
 
     render() {
-        console.log(this.state)
         return (
             <div>
                 <p>hello this is your life!</p>

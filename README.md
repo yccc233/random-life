@@ -3,6 +3,7 @@
 # 开始
 
 ```shell
-$ sudo npm install -g concurrently # 安装concurrently模块
+$ npm i # 安装node_modules
+$ sudo npm install -g concurrently # 安装concurrently模块 全局
 $ npm start # 开始
 ```
