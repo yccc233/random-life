@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# 数据资源暂时不要同步
+/public/resources/db/*

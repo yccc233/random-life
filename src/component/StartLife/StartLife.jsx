@@ -10,12 +10,16 @@ export class StartLife extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props)
-        console.log(this.props.match.params)
+        let par = this.props.match.params;
+        this.setState({
+            name: par.name,
+            sex: par.sex,
+            ...JSON.parse(par.params)
+        });
     }
 
     render() {
-        console.log("world")
+        console.log(this.state)
         return (
             <div>
                 <p>hello this is your life!</p>
