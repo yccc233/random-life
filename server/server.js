@@ -1,8 +1,9 @@
 const express = require('express');
 const fs = require('fs');
-const sqlite = require('./');
+const sqlite = require('sql.js');
 
-const fileBuffer = fs.readFileSync('../public/resources/db/virtualRoles.sqlite3');
+//由根目录下的node触发，路径从根目录起
+const fileBuffer = fs.readFileSync('Resources/db/virtualRoles.sqlite3');
 
 const db = new sqlite.Database(fileBuffer);
 
@@ -24,7 +25,8 @@ app.get('/server/sqlite/addline', (req, res) => {
 
     if (!param) {
         res.json({
-            error: 'Missing required parameter `q`',
+            code: 1,
+            message: 'Missing required parameter `q`'
         });
         return;
     }

@@ -1,5 +1,4 @@
 import React from "react";
-const sqlite = require("../../utils/sqlite");
 
 export class StartLife extends React.Component {
 
@@ -10,14 +9,13 @@ export class StartLife extends React.Component {
     }
 
     componentWillMount() {
-        let par = this.props.match.params;
-        par = {
-            name: par.name,
-            sex: par.sex,
-            ...JSON.parse(par.params)
-        }
-        this.setState(par);
-        sqlite.addLine(par);
+        // let par = this.props.match.params;
+        // par = {
+        //     name: par.name,
+        //     sex: par.sex,
+        //     ...JSON.parse(par.params)
+        // }
+        // this.setState(par);
     }
 
     render() {
