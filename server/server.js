@@ -1,12 +1,12 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
-const sqlite = require('sql.js');
+const sql = require('sql.js');
 
 //由根目录下的node触发，路径从根目录起
-const fileBuffer = fs.readFileSync('Resources/db/virtualRoles.sqlite3');
+const fileBuffer = fs.readFileSync('Resources/db/roles.db');
 
-const db = new sqlite.Database(fileBuffer);
+const db = new sql.Database(fileBuffer);
 
 const app = express();
 
@@ -17,8 +17,6 @@ app.set('port', 3005);
 
 app.get('/server/sqlite/addline', (req, res) => {
     let query = req.query;
-    console.log(query)
-
     if (!query) {
         res.end(JSON.stringify({
             code: 1,
@@ -31,9 +29,12 @@ app.get('/server/sqlite/addline', (req, res) => {
         query.line.split('&').join("', '")
     }');`;
     console.log("sql:::", sql)
-    // const r = dbSqlite.exec(sql);
+    const r = db.exec(sql);
 
-    // console.log(r)
+    console.log("r:::", r, typeof r)
+    if (r && r[0]) {
+        console.log("r[0]:::", r[0])
+    }
 
     res.end(JSON.stringify({
         code: 0,
