@@ -19,6 +19,8 @@ export class StartLife extends React.Component {
             ...JSON.parse(par.params)
         }
         this.setState(par);
+
+        //后台传数据
         $.get("http://localhost:3005/server/sqlite/addline", {
             table: dbTable,
             columns: Object.keys(par).join('&'),

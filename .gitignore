@@ -23,4 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # 数据资源暂时不要同步
-#/Resources/db/roles.db
+/Resources/db/roles.db

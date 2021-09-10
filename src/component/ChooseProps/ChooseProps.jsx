@@ -3,8 +3,15 @@ import React from "react";
 import './ChooseProps.css';
 
 import {Redirect} from 'react-router-dom';
-import {Form, Button, Select, Input, Tooltip, InputNumber} from 'antd';
-import { UserOutlined, FrownOutlined, SmileOutlined, MehOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import {Form, Button, Select, Input, Tooltip, InputNumber, Popconfirm} from 'antd';
+import {
+    UserOutlined,
+    FrownOutlined,
+    SmileOutlined,
+    MehOutlined,
+    InfoCircleOutlined,
+    QuestionCircleOutlined
+} from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -24,7 +31,7 @@ const Layout = {
 
 const tailLayout = {
     wrapperCol: {
-        offset: 9,
+        offset: 10,
         span: 16,
     },
 };
@@ -125,8 +132,15 @@ export default class ChooseProps extends React.Component {
                     >
                         <SelectSex onChange={this.onSexChange} sex={this.state.sex}/>
                     </Form.Item>
-                    <p style={{textAlign: "center"}}>下面为娃儿基本属性加个点！点数剩余
-                        <span style={{color: "blue"}}>{this.state.totalPoints - this.state.usedPoints}</span>，请自觉分配！🐶
+                    <p style={{textAlign: "center"}}>
+                        <span>下面为娃儿基本属性加个点！点数剩余</span>
+                        <span style={{color: "blue"}}>{this.state.totalPoints - this.state.usedPoints}</span>
+                        <span>，请自觉分配！</span>
+                        {
+                            (this.state.totalPoints - this.state.usedPoints < 0) &&
+                                <span style={{color: "#c7c7c7", fontSize: "10px"}}
+                                > 小东西被你发现了bug 🐶</span>
+                        }
                     </p>
 
                     <Form.Item
@@ -158,9 +172,17 @@ export default class ChooseProps extends React.Component {
                                     onPointsChange={this.onPointsChange} type={"luckPoint"}/>
                     </Form.Item>
                     <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit" className="btn">
-                            开始
-                        </Button>
+                        <Popconfirm title="确定就这样吗？"
+                                    onConfirm={this.onFinish}
+                                    icon={<QuestionCircleOutlined/>}
+                                    okText="就这样 ！"
+                                    cancelText="别吧..."
+                        >
+                            <Button type="primary" className="btn">
+                                开始
+                            </Button>
+                        </Popconfirm>
+
                         <Button type="link" htmlType="button" onClick={this.onRandom}>
                             随机人生
                         </Button>

@@ -1,8 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
 import '../css/antd.css';
 
-import {Route, BrowserRouter, Link} from "react-router-dom";
+import {Route, BrowserRouter, Link, Redirect} from "react-router-dom";
+
+import {GithubOutlined} from "@ant-design/icons";
 
 import ChooseProps from "./ChooseProps/ChooseProps";
 import {StartLife} from "./StartLife/StartLife";
@@ -13,8 +15,10 @@ function App() {
   return (
       <BrowserRouter>
           <Route exact path='/' component={Start} />
+          <Route exact path='/' component={HeadBar} />
           <Route path='/chooseprops' component={ChooseProps} />
           <Route path='/startlife/:name/:sex/:params' component={StartLife} />
+          <FootBar />
       </BrowserRouter>
   );
 }
@@ -25,7 +29,8 @@ function App() {
 const Start = () => (
     <div className="App">
         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+            <img src='/img/circle.png' className="App-logo" alt="logo" />
+            <br />
             <p>
                 随机人生重置版！
             </p>
@@ -39,5 +44,20 @@ const Start = () => (
     </div>
 )
 
+const HeadBar = () => (
+    <div className="headBar-style">
+        <a href="https://github.com/yccc233/random-life">
+            <GithubOutlined
+                style={{fontSize: "25px", color: "lightblue"}}
+            />
+        </a>
+    </div>
+)
+
+const FootBar = () => (
+    <div>
+
+    </div>
+)
 
 export default App;
