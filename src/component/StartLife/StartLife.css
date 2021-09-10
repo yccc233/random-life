@@ -1,0 +1,17 @@
+
+
+.propAffix {
+  border: none;
+  background: transparent;
+  color: gray;
+  font-size: 10px;
+}
+
+.propLabel {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.propValue {
+  font-weight: bold;
+}
